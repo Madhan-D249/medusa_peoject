@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  medusa:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "9000:9000"
+    env_file:
+      - .env
+    depends_on:
+      - redis
+    command: npm start  # or the appropriate start command for production
+
+  redis:
+    image: redis:7.0
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+
+volumes:
+  redis-data:
+
